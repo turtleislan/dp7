@@ -1,0 +1,33 @@
+version: '2'
+services:
+  
+  
+  drupal:
+    depends_on:
+      - mysql      
+    image: dp7
+    networks:
+      - dbnet
+
+    ports:
+      - "8000:80"
+    
+     
+    volumes:
+      - "./.data/dp01:/var/www/html/sites/default"
+    links:
+      - mysql
+      
+    restart: always
+    
+    environment:
+      DRUPAL_DB_HOST: mysql:3306
+      DRUPAL_DB_PASSWORD: drupal
+
+networks:
+  dbnet:
+    external: true
+
+        
+  
+    
