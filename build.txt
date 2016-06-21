@@ -1,0 +1,6 @@
+
+docker build -t turtleislan/drupal:7 -f ./7/Dockerfile  .
+docker build -t turtleislan/drupal:7-minimal  -f ./7/minimal/Dockerfile  .
+docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
+
+--no-cache

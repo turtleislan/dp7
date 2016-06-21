@@ -34,7 +34,7 @@ RUN mkdir sites/all/translations
 
 
 #install profile and save database to install.sql
-RUN drush si standard -y  \
+RUN drush si minimal -y  \
     --account-mail=service@webco.tw \
     --account-name=admin \
     --account-pass=admin \

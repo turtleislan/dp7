@@ -1,0 +1,62 @@
+#!/bin/bash
+set -e
+
+
+
+#check if install
+FILE=sites/default/settings.php
+#SETUP=drupal_setup.php
+
+if [ -f $FILE ];
+then
+   echo "File $FILE exists."
+   
+   
+else
+   echo "File $FILE does not exist. install to database"
+   drush si standard -y \
+    --account-mail=service@webco.tw \
+    --account-name=admin \
+    --account-pass=admin \
+    --db-su=$DRUPAL_DB_SU \
+    --db-su-pw=$DRUPAL_DB_PASSWORD \
+    --db-url=mysql://$DRUPAL_DB_SU:$DRUPAL_DB_PASSWORD@$DRUPAL_DB_HOST/$DRUPAL_DB_NAME \
+    --site-mail=dp7@webco.tw \
+    --site-name=dp7 \
+    --sites-subdir=default \
+    install_configure_form.date_default_timezone="Asia/Taipei" \
+    install_configure_form.site_default_country=TW
+
+    
+   
+    
+    
+    echo "Setup drupal by drupal_setup.php"    
+    drush php-script drupal_setup.php
+    
+    drush dl -y ctools module_filter devel admin_menu  l10n_update
+    drush en -y ctools module_filter devel admin_menu  l10n_update locale
+
+    drush vset dev_timer 1
+
+    drush dl -y drush_language
+    #drush en -y drush_language
+    #drush en -y locale
+    drush language-add zh-hant
+    drush language-enable zh-hant
+    drush language-default zh-hant
+    drush  l10n-update-refresh
+    drush l10n-update
+    
+fi
+
+
+    
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /var/run/apache2/apache2.pid
+echo "Database Host IP $DRUPAL_DB_HOST ";
+
+exec apache2 -DFOREGROUND
+
+

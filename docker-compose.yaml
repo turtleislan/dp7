@@ -14,7 +14,7 @@ services:
     
      
     volumes:
-      - "./.data/dp01:/var/www/html/sites/default"
+      - "./data/dp01:/var/www/html/sites/default"
     links:
       - mysql
       

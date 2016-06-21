@@ -1,4 +1,4 @@
-FROM drupal:7-apache
+FROM drupal:7.44-apache
 
 MAINTAINER turtleislan@gmail.com
 
@@ -8,8 +8,23 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
 	&& docker-php-ext-configure opcache \
 	&& docker-php-ext-install opcache 
   
+  
+  
+  
 # install require
-RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client
+RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client libapache2-mod-rpaf netcat
+RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update l10n_client 
+
+
+
+
+# Reverse proxy add forward, fix remote IP Address
+# https://github.com/gnif/mod_rpaf
+# https://www.howtoforge.com/tutorial/how-to-install-nginx-as-reverse-proxy-for-apache-on-ubuntu-15-10/#step-configure-logging
+# RUN apt-get -y install libapache2-mod-rpaf
+
+
+
 
 
 # install pecl uploadprogress
@@ -18,19 +33,8 @@ RUN apt-get -y install php-pear \
   && echo "extension=uploadprogress.so" > /etc/php5/mods-available/uploadprogress.ini \
   && echo "extension=uploadprogress.so" > /usr/local/etc/php/conf.d/docker-php-ext-uploadprogress.ini
   
-
-ENV DRUPAL_FOLDER default
-ENV DRUPAL_DB_NAME drupal
-ENV DRUPAL_DB_HOST 172.111.0.3
-ENV DRUPAL_DB_SU drupal
-ENV DRUPAL_DB_PASSWORD drupal
-ENV DRUPAL_SETUP_SCRIPT drupal_setup.php
-
-#COPY ${DRUPAL_SETUP_SCRIPT} ${DRUPAL_SETUP_SCRIPT}
-COPY drupal-foreground  /usr/local/bin/      
+# netcat  detect mysql start up
 
 
-
-
-
+COPY config/drupal-foreground  /usr/local/bin/      
 CMD ["drupal-foreground"]
