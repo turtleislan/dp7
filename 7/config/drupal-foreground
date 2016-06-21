@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+
+DOMAIN_IP=$(getent ahostsv4 dp01.ubddns.org | grep STREAM | head -n 1 | cut -d ' ' -f 1)
+echo "DOMAIN_IP=$DOMAIN_IP"
+
+PROXY_IP=$(getent ahostsv4 proxy | grep STREAM | head -n 1 | cut -d ' ' -f 1)
+echo "PROXY_IP=$PROXY_IP"
+
+wait-for-mysql.sh $DRUPAL_DB_HOST
+
+
+# call drupal setup
+drupal_setup.sh $DRUPAL_DB_HOST
+
+echo "BASE SETUP Finished! ######################"
+
+./sites/custom_setup.sh
+
+echo "CUSTOM SETUP Finished! ######################"
+
+
+
+
+
+exec apache2 -DFOREGROUND
+
+
