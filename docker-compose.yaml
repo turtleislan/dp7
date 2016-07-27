@@ -18,11 +18,7 @@ services:
     
      
     volumes:
-      - "./sites/drupal/sites:/var/www/html/sites"      
-      #- "./config/custom_setup.sh:/var/www/html/sites/custom_setup.sh:ro"      
-      - "./config/drupal_setup.sh:/var/www/html/drupal_setup.sh:ro"
-      #- "./config/drupal_setup.php:/var/www/html/sites/drupal_setup.php:ro"
-      - "./config/default.settings.php://var/www/html/sites/default/default.settings.php:ro"
+      - "./sites/drupal:/var/www/html/sites"      
 
     #links:
     #  - dev-db
@@ -34,6 +30,9 @@ services:
     restart: always
     
     environment:
+      SETUP_FILE: ./sites/drupal_setup.sh
+      DRUPAL_DB_DRIVE: mysql
+      DRUPAL_DB_PREFIX: ""
       DRUPAL_DB_SU: root
       DRUPAL_DB_USER: root
       DRUPAL_DB_HOST: dev-db

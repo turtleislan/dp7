@@ -2,20 +2,21 @@ FROM drupal:7.50-apache
 
 MAINTAINER turtleislan@gmail.com
 
+
+
 # custom the PHP extensions for drupal
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev apt-utils \
-	&& rm -rf /var/lib/apt/lists/* 
-	#&& pecl install opcache \
-	#&& docker-php-ext-install opcache 
-	#&& docker-php-ext-enable  opcache 
-  
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev git \
+	# PHP7 builtin opcache
+  #&& pecl install opcache \
+	&& docker-php-ext-install opcache \
+	&& docker-php-ext-enable  opcache 
   
   
   
 # install require
 RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client libapache2-mod-rpaf netcat
-RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update l10n_client 
-
+#RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update l10n_client 
+# netcat  detect mysql start up
 
 
 
@@ -28,18 +29,37 @@ RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter dev
 
 
 
-# install pecl uploadprogress
-#RUN apt-get -y install php-pear \
-  #&& pecl install uploadprogress \
+# install pecl uploadprogress  fail in PHP7
+#RUN pecl install uploadprogress
   #&& docker-php-ext-install uploadprogress 
   #&& docker-php-ext-enable  uploadprogress 
   #&& echo "extension=uploadprogress.so" > /etc/php5/mods-available/uploadprogress.ini \
   #&& echo "extension=uploadprogress.so" > /usr/local/etc/php/conf.d/docker-php-ext-uploadprogress.ini
   
-# netcat  detect mysql start up
+  
+# compile uploadprogress for PHP7 #
+RUN git clone https://github.com/Jan-E/uploadprogress.git /tmp/php-uploadprogress && \
+        cd /tmp/php-uploadprogress && \
+        phpize && \
+        ./configure --prefix=/usr && \
+        make && \
+        make install && \
+        echo 'extension=uploadprogress.so' > /usr/local/etc/php/conf.d/docker-php-ext-uploadprogress.ini && \
+        rm -rf /tmp/*
 
 
-COPY ./config/drupal-foreground  /usr/local/bin/      
-COPY ./config/drupal_setup.php  /var/www/html      
+COPY ./7/config/drupal-foreground  /usr/local/bin/      
+COPY ./7/config/wait-for-mysql.sh  /var/www/html      
+COPY ./7/config/default.settings.php  /var/www/html/sites/default      
+
+#backup default sites to tar
+RUN chown -Rcf www-data:www-data . \
+  && chmod -Rcf 777 ./sites \
+  && tar -cf sites.tar ./sites \
+  && rm -rf /var/lib/apt/lists/*
+
+  
+#RUN ls -al /usr/local/etc/php/conf.d/
+
 
 CMD ["drupal-foreground"]

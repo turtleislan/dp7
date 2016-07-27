@@ -1,4 +1,14 @@
 
+
+1. Custom system package in Dockerfile
+2. Use offical drupal images
+3. Change apache-forground to drupal-forground
+4. Check setting.php if not use drush install  (A standard|B language Zh-TW)
+5. Start up script run when container startup  before_start.sh
+
+
+
+
 docker build -t turtleislan/drupal:7 -f ./7/Dockerfile  .
 docker build -t turtleislan/drupal:7-minimal  -f ./7/minimal/Dockerfile  .
 docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .

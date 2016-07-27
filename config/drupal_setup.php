@@ -23,10 +23,3 @@ if (is_dir($path) && is_writable($path)){
   file_create_htaccess($path);
   variable_set('file_private_path',$path);
 }
-
-
-
-
-
-
-

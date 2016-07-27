@@ -222,8 +222,8 @@ $databases = array (
       'password' => $_ENV['DRUPAL_DB_PASSWORD'],
       'host' => $_ENV['DRUPAL_DB_HOST'],
       'port' => $_ENV['DRUPAL_DB_PORT'],
-      'driver' => 'mysql',
-      'prefix' => '',
+      'driver' => $_ENV['DRUPAL_DB_DRIVE'],
+      'prefix' => $_ENV['DRUPAL_DB_PREFIX'],
     ),
   ),
 );
@@ -338,6 +338,7 @@ ini_set('session.cookie_lifetime', 2000000);
  * with a leading dot, as per RFC 2109.
  */
 # $cookie_domain = '.example.com';
+$cookie_domain = $_ENV['DRUPAL_SITE_DOMAIN'];
 
 /**
  * Variable overrides:
@@ -401,13 +402,14 @@ ini_set('session.cookie_lifetime', 2000000);
  * Be aware, however, that it is likely that this would allow IP
  * address spoofing unless more advanced precautions are taken.
  */
-# $conf['reverse_proxy'] = TRUE;
+$conf['reverse_proxy'] = TRUE;
 
 /**
  * Specify every reverse proxy IP address in your environment.
  * This setting is required if $conf['reverse_proxy'] is TRUE.
  */
 # $conf['reverse_proxy_addresses'] = array('a.b.c.d', ...);
+$conf['reverse_proxy_addresses'][] = $_ENV['PROXY_IP'];
 
 /**
  * Set this value if your proxy server sends the client IP in a header
