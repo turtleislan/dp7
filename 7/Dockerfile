@@ -3,10 +3,11 @@ FROM drupal:7.50-apache
 MAINTAINER turtleislan@gmail.com
 
 # custom the PHP extensions for drupal
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& docker-php-ext-configure opcache \
-	&& docker-php-ext-install opcache 
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev apt-utils \
+	&& rm -rf /var/lib/apt/lists/* 
+	#&& pecl install opcache \
+	#&& docker-php-ext-install opcache 
+	#&& docker-php-ext-enable  opcache 
   
   
   
@@ -28,13 +29,17 @@ RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter dev
 
 
 # install pecl uploadprogress
-RUN apt-get -y install php-pear \
-  && pecl install uploadprogress \
-  && echo "extension=uploadprogress.so" > /etc/php5/mods-available/uploadprogress.ini \
-  && echo "extension=uploadprogress.so" > /usr/local/etc/php/conf.d/docker-php-ext-uploadprogress.ini
+#RUN apt-get -y install php-pear \
+  #&& pecl install uploadprogress \
+  #&& docker-php-ext-install uploadprogress 
+  #&& docker-php-ext-enable  uploadprogress 
+  #&& echo "extension=uploadprogress.so" > /etc/php5/mods-available/uploadprogress.ini \
+  #&& echo "extension=uploadprogress.so" > /usr/local/etc/php/conf.d/docker-php-ext-uploadprogress.ini
   
 # netcat  detect mysql start up
 
 
-COPY config/drupal-foreground  /usr/local/bin/      
+COPY ./config/drupal-foreground  /usr/local/bin/      
+COPY ./config/drupal_setup.php  /var/www/html      
+
 CMD ["drupal-foreground"]
