@@ -224,6 +224,8 @@ $databases = array (
       'port' => $_ENV['DRUPAL_DB_PORT'],
       'driver' => $_ENV['DRUPAL_DB_DRIVE'],
       'prefix' => $_ENV['DRUPAL_DB_PREFIX'],
+      'charset' => 'utf8mb4',
+      'collation' => 'utf8mb4_general_ci',       
     ),
   ),
 );

@@ -52,7 +52,7 @@ fi
 #set default drupal_startup.sh
 if [[ -z $STARTUP_FILE ]];
 then
-  STARTUP_FILE=./sites/startup_setup.sh
+  STARTUP_FILE=./sites/drupal_startup.sh
 fi
 
 if [ -f $STARTUP_FILE ]; 
