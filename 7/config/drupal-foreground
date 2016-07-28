@@ -75,6 +75,7 @@ PROXY_IP=$PXIP
 
 
 
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # SATRT Apache2 Forgeround #########################################  
 # start apache refrence  from officeal

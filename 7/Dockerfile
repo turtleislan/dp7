@@ -48,9 +48,9 @@ RUN git clone https://github.com/Jan-E/uploadprogress.git /tmp/php-uploadprogres
         rm -rf /tmp/*
 
 
-COPY ./7/config/wait-for-mysql.sh  /var/www/html
-COPY ./7/config/default.settings.php  /var/www/html/sites/default      
-COPY ./7/config/drupal-foreground  /usr/local/bin/
+COPY 7/config/wait-for-mysql.sh  /var/www/html
+COPY 7/config/default.settings.php  /var/www/html/sites/default      
+COPY 7/config/drupal-foreground  /usr/local/bin/
 
 #backup default sites to tar
 RUN chown -Rcf www-data:www-data . \
