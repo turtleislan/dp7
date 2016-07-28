@@ -51,7 +51,7 @@ RUN git clone https://github.com/Jan-E/uploadprogress.git /tmp/php-uploadprogres
 
 COPY ./config/default.settings.php  /var/www/html/sites/default
 COPY ./config/wait-for-mysql.sh  /var/www/html
-#COPY ./config/drupal-foreground  /usr/local/bin/
+COPY ./config/drupal-foreground  /usr/local/bin/
 COPY ./config/rpaf.conf  /etc/apache2/mods-available/rpaf.conf
 
 RUN ls -al /usr/local/bin \
