@@ -48,7 +48,7 @@ RUN git clone https://github.com/Jan-E/uploadprogress.git /tmp/php-uploadprogres
         rm -rf /tmp/*
 
 
-COPY ./config/rpaf.conf  /var/www/html
+COPY ./7/config/rpaf.conf  /var/www/html
 COPY ./7/config/wait-for-mysql.sh  /var/www/html
 COPY ./7/config/default.settings.php  /var/www/html/sites/default      
 COPY ./7/config/drupal-foreground  /usr/local/bin/
