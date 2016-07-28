@@ -48,11 +48,11 @@ RUN git clone https://github.com/Jan-E/uploadprogress.git /tmp/php-uploadprogres
         rm -rf /tmp/*
 
 
-COPY ./config/rpaf.conf  /var/www/html
-COPY ./7/config/rpaf.conf  /var/www/html
-COPY ./7/config/wait-for-mysql.sh  /var/www/html
-COPY ./7/config/default.settings.php  /var/www/html/sites/default      
-COPY ./7/config/drupal-foreground  /usr/local/bin/
+
+COPY ./config/default.settings.php  /var/www/html/sites/default
+COPY ./config/wait-for-mysql.sh  /var/www/html
+COPY ./config/drupal-foreground  /usr/local/bin/
+COPY ./config/rpaf.conf  /etc/apache2/mods-available/rpaf.conf
 
 #backup default sites to tar
 RUN chown -Rcf www-data:www-data . \
