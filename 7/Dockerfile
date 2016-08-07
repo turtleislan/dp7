@@ -63,7 +63,15 @@ RUN chown -Rcf www-data:www-data . \
   && chmod -Rcf 777 ./sites \
   && tar -cf sites.tar ./sites \
   && rm -rf /var/lib/apt/lists/* \
-  && chmod 755 /usr/local/bin/
+  && chmod 755 /usr/local/bin/  \
+  && a2enmod ssl \
+  && a2ensite default-ssl \
+  && mkdir /etc/apache2/ssl \
+  && chmod -Rvf 600 /etc/apache2/ssl
+
+
+
+
 
   
 #RUN ls -al /usr/local/etc/php/conf.d/
