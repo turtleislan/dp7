@@ -68,5 +68,6 @@ RUN chown -Rcf www-data:www-data . \
   
 #RUN ls -al /usr/local/etc/php/conf.d/
 
+EXPOSE 80 443
 
 CMD ["drupal-foreground"]
