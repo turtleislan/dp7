@@ -9,7 +9,8 @@ services:
     #depends_on:
     #  - dev-db:     
     
-    image: turtleislan/drupal:7
+    #image: turtleislan/drupal:7
+    build: .
     networks:
       - dbnet
 
@@ -17,8 +18,8 @@ services:
       - "8000:80"
     
      
-    volumes:
-      - "./sites/drupal:/var/www/html/sites"      
+    #volumes:
+      #- "./sites/drupal:/var/www/html/sites"      
 
     #links:
     #  - dev-db
@@ -42,7 +43,9 @@ services:
       DRUPAL_DB_DRIVE: mysql
       DRUPAL_DB_NAME: drupal_image
       DRUPAL_SITE_DOMAIN: image.webco.tw      
-    
+      DRUPAL_DB_CHECK: ''
+
+    entrypoint: drupal-foreground
 
 networks:
   dbnet:

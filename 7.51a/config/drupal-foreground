@@ -8,10 +8,9 @@ set -e
 
 
 
-
+if [ "$DRUPAL_DB_CHECK" ]; then
 ./wait-for-mysql.sh $DRUPAL_DB_HOST $DRUPAL_DB_PORT
-
-
+fi
 
 
 # if sites is empty restoe default
@@ -72,7 +71,7 @@ fi
 # convert PROXY Name to IP Address
 PXIP="$(getent hosts $PROXY_IP | awk 'NR==1{ print $1 }')"
 PROXY_IP=$PXIP
-
+echo "PROXY_IP = $PROXY_IP"
 
 
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
