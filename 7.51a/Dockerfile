@@ -55,13 +55,14 @@ COPY ./config/wait-for-mysql.sh  /var/www/html
 COPY ./config/drupal-foreground  /usr/local/bin/
 COPY ./config/rpaf.conf  /etc/apache2/mods-available/rpaf.conf
 
+
 RUN ls -al /usr/local/bin \
   && chmod 755 /usr/local/bin/drupal-foreground \
   && chmod 755 /var/www/html/wait-for-mysql.sh
 
 #backup default sites to tar
-RUN chown -Rcf www-data:www-data . \
-  && chmod -Rcf 777 ./sites \
+RUN chown -Rf www-data:www-data . \
+  && chmod -Rf 777 ./sites \
   && tar -cf sites.tar ./sites \
   && rm -rf /var/lib/apt/lists/* \
   && chmod 755 /usr/local/bin/  \
@@ -71,6 +72,8 @@ RUN chown -Rcf www-data:www-data . \
   && chmod -Rvf 600 /etc/apache2/ssl
 
 
+# defaul disable SSL
+COPY ./config/ssl/default-ssl.conf.disable  /etc/apache2/sites-available/default-ssl.conf
 
 
 

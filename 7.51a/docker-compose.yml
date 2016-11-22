@@ -19,7 +19,9 @@ services:
     
      
     #volumes:
-      #- "./sites/drupal:/var/www/html/sites"      
+              #- "./config/ssl/default-ssl.conf.disable:/etc/apache2/sites-available/default-ssl.conf"
+              #- "./sites/drupal:/var/www/html/sites"      
+
 
     #links:
     #  - dev-db
@@ -50,7 +52,3 @@ services:
 networks:
   dbnet:
     external: true
-
-        
-  
-    
