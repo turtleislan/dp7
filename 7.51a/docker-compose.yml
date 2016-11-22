@@ -14,8 +14,8 @@ services:
     networks:
       - dbnet
 
-    ports:
-      - "8000:80"
+    #ports:
+      #- "8000:80"
     
      
     #volumes:
