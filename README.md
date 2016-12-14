@@ -8,6 +8,7 @@ This is modify from Docker official [official image](https://docs.docker.com/doc
  * libapache2-mod-rpaf (reverse proxy add forward, fix remote IP Address)
  * PECL UploadProgress
  * OPCACH
+ * Support SSL
 
 
 ```sh
