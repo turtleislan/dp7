@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev git 
   
   
 # install require
-RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client libapache2-mod-rpaf netcat
+RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client libapache2-mod-rpaf netcat cron
 #RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update l10n_client 
 # netcat  detect mysql start up
 
