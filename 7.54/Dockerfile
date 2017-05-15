@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev git 
   #&& pecl install opcache \
 	&& docker-php-ext-install sockets \
 	&& docker-php-ext-install opcache \
-	&& docker-php-ext-enable  opcache 
-  
+	&& docker-php-ext-install bcmath \
+	&& docker-php-ext-enable  opcache
+    
   
   
 # install require
@@ -24,7 +25,7 @@ RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client lib
 # Reverse proxy add forward, fix remote IP Address
 # https://github.com/gnif/mod_rpaf
 # https://www.howtoforge.com/tutorial/how-to-install-nginx-as-reverse-proxy-for-apache-on-ubuntu-15-10/#step-configure-logging
-# RUN apt-get -y install libapache2-mod-rpaf
+# RUN apt-get -y install libapache2-mod-rpaf tidy
 
 
 
@@ -66,7 +67,7 @@ RUN chown -Rf www-data:www-data . \
   && tar -cf sites.tar ./sites \
   && rm -rf /var/lib/apt/lists/* \
   && chmod 755 /usr/local/bin/  \
-  && a2enmod ssl \
+  && a2enmod ssl headers expires\
   && a2ensite default-ssl \
   && mkdir /etc/apache2/ssl \
   && chmod -Rvf 600 /etc/apache2/ssl
