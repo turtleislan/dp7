@@ -31,10 +31,17 @@ RUN apt-get update && apt-get install -y \
     
   
 # install require
-RUN apt-get -y update && apt-get -y install vim drush net-tools mysql-client libapache2-mod-rpaf netcat cron
+RUN apt-get -y update && apt-get -y install vim  net-tools mysql-client  libapache2-mod-rpaf netcat cron
+
 #RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update l10n_client 
 # netcat  detect mysql start up
 
+# install drush
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
+RUN cd /usr/local/src/drush &&  git checkout 6.2.0 && composer install
+RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 
 
 # Reverse proxy add forward, fix remote IP Address
