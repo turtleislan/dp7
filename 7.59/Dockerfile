@@ -5,7 +5,7 @@ MAINTAINER turtleislan@gmail.com
 
 
 # custom the PHP extensions for drupal
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev git \
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev git \
 	# PHP7 builtin opcache
     #&& pecl install opcache \
 	&& docker-php-ext-install sockets \

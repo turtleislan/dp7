@@ -15,6 +15,7 @@ docker build -t turtleislan/drupal:7.55  -f 7.55/Dockerfile  7.55/
 docker build -t turtleislan/drupal:7.56a -f 7.56a/Dockerfile  7.56a/
 docker build -t turtleislan/drupal:7.57a -f 7.57a/Dockerfile  7.57a/
 docker build -t turtleislan/drupal:7.58a -f 7.58a/Dockerfile  7.58a/
+docker build -t turtleislan/drupal:7.59 -f 7.59/Dockerfile  7.59/
 
 docker build -t turtleislan/drupal:7-minimal  -f ./7/minimal/Dockerfile  .
 docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
@@ -22,4 +23,10 @@ docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
 --no-cache
 
 
+
 docker run --rm -it turtleislan/drupal:latest ls
+
+
+
+docker tag  turtleislan/drupal:7.59  192.168.1.71:5000/turtleislan/drupal:7.59 
+docker push 192.168.1.71:5000/turtleislan/drupal:7.59
