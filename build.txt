@@ -7,6 +7,8 @@
 5. Start up script run when container startup  before_start.sh
 
 
+docker build -t turtleislan/drupal:7-minimal  -f ./7/minimal/Dockerfile  .
+docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
 
 
 docker build -t turtleislan/drupal:7      -f 7/Dockerfile  7/
@@ -20,8 +22,6 @@ docker build -t turtleislan/drupal:7.61   -f 7.61/Dockerfile  7.61/
 docker build -t turtleislan/drupal:7.63   -f 7.63/Dockerfile  7.63/
 docker build -t turtleislan/drupal:7.64   -f 7.64/Dockerfile  7.64/
 
-docker build -t turtleislan/drupal:7-minimal  -f ./7/minimal/Dockerfile  .
-docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
 
 --no-cache
 

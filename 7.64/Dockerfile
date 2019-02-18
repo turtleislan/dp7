@@ -6,12 +6,10 @@ MAINTAINER turtleislan@gmail.com
 
 # custom the PHP extensions for drupal
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev git \
-	# PHP7 builtin opcache
-    #&& pecl install opcache \
+	# PHP7 builtin opcache    
 	&& docker-php-ext-install sockets \
 	&& docker-php-ext-install opcache \
-	&& docker-php-ext-install bcmath \
-	&& docker-php-ext-enable  opcache
+	&& docker-php-ext-install bcmath
 
 # GD freetype
 RUN apt-get update && apt-get install -y \
@@ -19,14 +17,14 @@ RUN apt-get update && apt-get install -y \
     libmcrypt-dev \
     libpng-dev \
         vim \
-    && docker-php-ext-install iconv mcrypt \
+    && docker-php-ext-install  mcrypt \
     && docker-php-ext-configure gd \
         --enable-gd-native-ttf \
         --enable-gd-jis-conv \
         --with-freetype-dir=/usr/include/freetype2 \
         --with-png-dir=/usr/include \
-        --with-jpeg-dir=/usr/include \
-    && docker-php-ext-install gd 
+        --with-jpeg-dir=/usr/include
+    #&& docker-php-ext-install gd 
 
     
   
@@ -40,7 +38,7 @@ RUN apt-get -y update && apt-get -y install vim  net-tools mysql-client  libapac
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
-RUN cd /usr/local/src/drush &&  git checkout 6.2.0 && composer install
+RUN cd /usr/local/src/drush &&  git checkout 7.x && composer install
 RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 
 
