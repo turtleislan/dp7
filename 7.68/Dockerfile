@@ -2,24 +2,30 @@ FROM drupal:7.68-apache
 
 MAINTAINER turtleislan@gmail.com
 
-
+RUN apt-get update && apt-get install -y \
+    vim \
+    git
 
 # custom the PHP extensions for drupal
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev git \
+RUN apt-get update && apt-get install -y   \
 	# PHP7 builtin opcache    
 	&& docker-php-ext-install sockets \
 	&& docker-php-ext-install opcache \
 	&& docker-php-ext-install bcmath
 
+# PHP mcrypt extension  
+# mcrypt has been deprecated in 7.1 and removed in 7.2 in favor of OpenSSL
+
+
 # GD freetype
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
-    libmcrypt-dev \
     libpng-dev \
-        vim \
-    && docker-php-ext-install  mcrypt \
+    libjpeg-dev \
+    libpq-dev \
+    \
     && docker-php-ext-configure gd \
-        --enable-gd-native-ttf \
+        #--enable-gd-native-ttf \
         --enable-gd-jis-conv \
         --with-freetype-dir=/usr/include/freetype2 \
         --with-png-dir=/usr/include \
