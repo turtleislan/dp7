@@ -29,12 +29,12 @@ else
     install_configure_form.date_default_timezone="Asia/Taipei" \
     install_configure_form.site_default_country=TW 
     
-  drush dl -y ctools module_filter devel admin_menu  l10n_update smtp
-  drush en -y ctools module_filter devel admin_menu  l10n_update locale smtp admin_devel update
+  drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update smtp backup_migrate bootstrap
+  drush en -y ctools module_filter devel admin_menu  l10n_update locale smtp admin_devel update backup_migrate 
   drush vset dev_timer 1
 
   echo "default language zh-hant"
-  drush dl -y drush_language
+  drush dl -y --destination=sites/all/modules/contrib drush_language
   drush language-add zh-hant
   drush language-default zh-hant
   drush l10n-update-refresh
