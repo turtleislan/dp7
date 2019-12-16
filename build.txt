@@ -9,11 +9,11 @@
 
 
 
-docker build -t turtleislan/drupal:7.67 -f 7.67/Dockerfile  7.67/
+docker build -t turtleislan/drupal:7.68 -f 7.68/Dockerfile  7.68/
 
 
-docker tag  turtleislan/drupal:7.67  192.168.1.71:6000/turtleislan/drupal:7.67
+docker tag  turtleislan/drupal:7.68  192.168.1.71:6000/turtleislan/drupal:7.68
 
-docker push 192.168.1.71:6000/turtleislan/drupal:7.67
+docker push 192.168.1.71:6000/turtleislan/drupal:7.68
 
-docker push turtleislan/drupal:7.67
+docker push turtleislan/drupal:7.68
