@@ -44,7 +44,7 @@ RUN apt-get -y update && apt-get -y install vim  net-tools mysql-client  libapac
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
-RUN cd /usr/local/src/drush &&  git checkout 7.x && composer install
+RUN cd /usr/local/src/drush &&  git checkout 8.3.2 && composer install
 RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 
 
