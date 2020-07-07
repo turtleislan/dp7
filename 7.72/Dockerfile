@@ -27,9 +27,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd \
         #--enable-gd-native-ttf \
         --enable-gd-jis-conv \
-        --with-freetype-dir=/usr/include/freetype2 \
-        --with-png-dir=/usr/include \
-        --with-jpeg-dir=/usr/include
+        #--with-freetype-dir=/usr/include/freetype2 \
+        #--with-png-dir=/usr/include \
+        #--with-jpeg-dir=/usr/include
     #&& docker-php-ext-install gd 
 
     
