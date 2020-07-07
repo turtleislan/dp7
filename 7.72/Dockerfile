@@ -27,15 +27,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd \
         #--enable-gd-native-ttf \
         --enable-gd-jis-conv \
-        #--with-freetype-dir=/usr/include/freetype2 \
-        #--with-png-dir=/usr/include \
-        #--with-jpeg-dir=/usr/include
+        --with-freetype=/usr/include/freetype2 \
+        #--with-png=/usr/include \
+        --with-jpeg=/usr/include
     #&& docker-php-ext-install gd 
 
     
   
 # install require
-RUN apt-get -y update && apt-get -y install vim  net-tools mysql-client  libapache2-mod-rpaf netcat cron
+RUN apt-get -y update && apt-get -y install vim  net-tools default-mysql-client  libapache2-mod-rpaf netcat cron
 
 #RUN drush dl -y --destination=sites/all/modules/contrib ctools module_filter devel admin_menu  l10n_update l10n_client 
 # netcat  detect mysql start up
