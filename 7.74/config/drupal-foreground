@@ -1,0 +1,93 @@
+#!/bin/bash
+set -e
+
+#DOMAIN_IP=$(getent ahostsv4 dp01.ubddns.org | grep STREAM | head -n 1 | cut -d ' ' -f 1)
+#echo "DOMAIN_IP=$DOMAIN_IP"
+#PROXY_IP=$(getent ahostsv4 proxy | grep STREAM | head -n 1 | cut -d ' ' -f 1)
+#echo "PROXY_IP=$PROXY_IP"
+
+
+
+if [ "$DRUPAL_DB_CHECK" ]; then
+./wait-for-mysql.sh $DRUPAL_DB_HOST $DRUPAL_DB_PORT
+fi
+
+
+# if sites is empty restoe default
+if [ "$(ls -A sites)" ]; then
+  echo "Default sites OK!"
+else
+  echo "RESTORE Sites default! #####################"
+  tar -xf sites.tar
+fi
+
+
+# Call drupal setup if settings.php  not exits
+SETTING_FILE=./sites/default/settings.php
+if [ ! -f $SETTING_FILE ]; 
+then
+  
+  #set default drupal_setup.sh
+  if [[ -z $SETUP_FILE ]];
+  then
+    SETUP_FILE=./sites/drupal_setup.sh
+  fi
+    
+  if [ -f $SETUP_FILE ]; 
+  then
+    echo "BASE SETUP START!"
+    ./sites/drupal_setup.sh
+    echo "BASE SETUP Finished!"
+  else
+    echo "BASE SETUP $SETUP_FILE not found! ######################"
+  fi
+fi
+
+
+
+
+
+# STARTUP SETUP
+#set default drupal_startup.sh
+if [[ -z $STARTUP_FILE ]];
+then
+  STARTUP_FILE=./sites/drupal_startup.sh
+fi
+
+if [ -f $STARTUP_FILE ]; 
+then
+  echo "SET STARTUP!"
+  ./sites/drupal_startup.sh
+  echo "END SET STARTUP"
+else
+  echo "STARTUP SETUP $STARTUP_FILE not found! ######################"    
+fi
+
+
+
+
+
+
+# convert PROXY Name to IP Address
+PXIP="$(getent hosts $PROXY_IP | awk 'NR==1{ print $1 }')"
+PROXY_IP=$PXIP
+echo "PROXY_IP = $PROXY_IP"
+
+
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# SATRT Apache2 Forgeround #########################################  
+# start apache refrence  from officeal
+# https://github.com/docker-library/php/blob/f016f5dc420e7d360f7381eb014ac6697e247e11/7.0/apache/apache2-foreground
+: "${APACHE_CONFDIR:=/etc/apache2}"
+: "${APACHE_ENVVARS:=$APACHE_CONFDIR/envvars}"
+if test -f "$APACHE_ENVVARS"; then
+  . "$APACHE_ENVVARS"
+fi
+
+# Apache gets grumpy about PID files pre-existing
+: "${APACHE_PID_FILE:=${APACHE_RUN_DIR:=/var/run/apache2}/apache2.pid}"
+rm -f "$APACHE_PID_FILE"
+
+exec apache2 -DFOREGROUND "$@"
+
