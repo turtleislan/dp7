@@ -1,0 +1,6 @@
+0  0    * * 0,2,4,6  /home/jimmy/docker/tpcdct/backup_sql.sh   > /var/log/backup.log 2>&1
+10 0    10 * *        /home/jimmy/docker/tpcdct/backup_site.sh  > /var/log/backup.log 2>&1
+
+#40 22    * * *  /home/jimmy/docker/tpcdct/backup_sql.sh > /var/log/backup.log 2>&1
+
+
