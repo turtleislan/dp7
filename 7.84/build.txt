@@ -6,6 +6,9 @@
 4. Check setting.php if not use drush install  (A standard|B language Zh-TW)
 5. Start up script run when container startup  before_start.sh
 
+check PHP Modules
+# docker run --rm drupal:7.84-apache  php -m
+
 
 docker build -t turtleislan/drupal:7-minimal  -f ./7/minimal/Dockerfile  .
 docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
@@ -14,7 +17,7 @@ docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
 
 
 docker build            -t turtleislan/drupal:7.84 -f 7.84/Dockerfile  7.84/
-docker build --no-cache -t turtleislan/drupal:7.84 -f 7.84/Dockerfile  7.84/
+
 
 docker image tag  turtleislan/drupal:7.84  192.169.1.71:6000/turtleislan/drupal:7.84
 
