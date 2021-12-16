@@ -1,4 +1,4 @@
-FROM drupal:7.83-apache
+FROM drupal:7.84-apache
 
 MAINTAINER turtleislan@gmail.com
 
@@ -44,7 +44,10 @@ RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 # install pecl uploadprogress  fail in PHP7
  
   
-# compile uploadprogress for PHP7 #
+# compile uploadprogress for PHP7.4
+git clone https://github.com/php/pecl-php-uploadprogress/ /usr/src/php/ext/uploadprogress/ && \
+    docker-php-ext-configure uploadprogress && \
+    docker-php-ext-install uploadprogress && \
 
 
 
