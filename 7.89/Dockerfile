@@ -6,6 +6,11 @@ RUN apt-get update && apt-get install -y \
     vim \
     git
 
+# custom the mysql for drupal
+RUN  docker-php-ext-install mysqli  \
+  && docker-php-ext-configure mysqli  --with-mysqli=mysqlnd
+  
+
 # custom the PHP extensions for drupal
 RUN apt-get update && apt-get install -y   \
 	&& docker-php-ext-install sockets \
