@@ -1,10 +1,15 @@
-FROM drupal:7.84-apache
+FROM drupal:7.90-apache
 
 MAINTAINER turtleislan@gmail.com
 
 RUN apt-get update && apt-get install -y \
     vim \
     git
+
+# custom the mysql for drupal
+RUN  docker-php-ext-install mysqli  \
+  && docker-php-ext-configure mysqli  --with-mysqli=mysqlnd
+  
 
 # custom the PHP extensions for drupal
 RUN apt-get update && apt-get install -y   \
