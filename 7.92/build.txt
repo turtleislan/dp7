@@ -16,14 +16,18 @@ docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
 
 
 
+
 docker build            -t turtleislan/drupal:7.92 -f 7.92/Dockerfile  7.92/
 docker build --no-cache -t turtleislan/drupal:7.92 -f 7.92/Dockerfile  7.92/
+docker push turtleislan/drupal:7.92
+
+
 
 
 docker image tag  turtleislan/drupal:7.92  192.169.1.71:6000/turtleislan/drupal:7.92
-
 docker push 192.169.1.71:6000/turtleislan/drupal:7.92
 
-docker push turtleislan/drupal:7.92
+
+
 
 
