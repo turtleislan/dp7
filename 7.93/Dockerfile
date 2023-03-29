@@ -1,4 +1,4 @@
-FROM drupal:7.95-apache
+FROM drupal:7.93-apache
 
 MAINTAINER turtleislan@gmail.com
 
@@ -46,7 +46,6 @@ RUN apt-get -y update && apt-get -y install net-tools default-mysql-client  liba
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN git clone https://github.com/drush-ops/drush.git /usr/local/src/drush
-# PHP 8
 RUN cd /usr/local/src/drush &&  git checkout 8.4.12 && composer install
 RUN ln -s /usr/local/src/drush/drush /usr/bin/drush
 
