@@ -1,4 +1,4 @@
-FROM drupal:7.96-apache
+FROM drupal:7.97-apache
 
 MAINTAINER turtleislan@gmail.com
 
