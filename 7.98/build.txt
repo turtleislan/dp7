@@ -19,8 +19,8 @@ docker build -t turtleislan/drupal:7-standard -f ./7/standard/Dockerfile  .
 
 
 
-docker build            -t turtleislan/drupal:7.98 -f 7.98/Dockerfile  7.98/
-docker build --no-cache -t turtleislan/drupal:7.98 -f 7.98/Dockerfile  7.98/
+docker build  -t turtleislan/drupal:7.98 -f 7.98/Dockerfile  7.98/
+docker build  -t turtleislan/drupal:7.98 -f 7.98/Dockerfile  7.98/ --no-cache
 docker push turtleislan/drupal:7.98
 
 
