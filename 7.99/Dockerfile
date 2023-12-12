@@ -1,10 +1,12 @@
-FROM drupal:7.99-apache
+FROM drupal:7.99-apache-bullseye
+
 
 MAINTAINER turtleislan@gmail.com
 
-RUN apt-get update && apt-get install -y \
-    vim \
-    git
+RUN apt-get -y update
+
+RUN apt-get install -y vim git
+    
 
 # custom the mysql for drupal
 RUN  docker-php-ext-install mysqli  \
